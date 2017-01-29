@@ -1,0 +1,12 @@
+select h.hacker_id,h.name from
+(
+    select t.hacker_id as hacker_id, count(*) as cant as cant from 
+    (
+        select s.hacker_id as hacker_id, s.challenge_id as challenge_id from Submissions s join Challenges c on s.challenge_id = c.challenge_id
+        join Difficulty d on d.difficulty_level = c.difficulty_level
+        where s.score = d.score
+    ) as t
+    group by t.hacker_id
+    having count(*) > 1
+) as r join Hacker h on r.hacker_id = h.hacker_id
+order by r.cant desc, h.hacker_id asc

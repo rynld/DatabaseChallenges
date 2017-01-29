@@ -1,0 +1,9 @@
+select (case when g.grade < 8 then null else s.name end) as name, g.grade,s.marks from Students s join Grades g on g.min_mark <= s.marks and s.marks <= g.max_mark
+ order by
+ g.grade desc,
+ case when g.grade >= 8 then s.name end,
+ case when g.grade < 8 then s.marks end
+
+
+--mssql 
+--https://www.hackerrank.com/challenges/the-report/submissions/database/36841398
